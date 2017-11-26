@@ -1,20 +1,21 @@
 import DisplayObject from './DisplayObject'
+import Stage from './Stage'
 
-export default class DisplayContainer extends DisplayObject {
+export default class Container extends DisplayObject {
 
   protected _children: DisplayObject[] = []
 
-  protected _parent: DisplayContainer;
+  protected _parent: Container;
 
   constructor () {
     super()
   }
 
-  getChildIndex (child: DisplayObject): number {
+  public getChildIndex (child: DisplayObject): number {
     return this._children.indexOf(child)
   }
 
-  addChild (child: DisplayObject) {
+  public addChild (child: DisplayObject) {
     let childIndex = this.getChildIndex(child)
     if (childIndex >= 0) {
       this._children.splice(childIndex, 1)
@@ -22,12 +23,21 @@ export default class DisplayContainer extends DisplayObject {
     } else {
       this._children.push(child)
     }
+
+    child.parent = this
   }
 
-  removeChild (child: DisplayObject) {
+  public removeChild (child: DisplayObject) {
     let childIndex = this.getChildIndex(child)
     if (childIndex >= 0) {
       this._children.splice(childIndex, 1)
+      child.parent = null
     }
+  }
+
+  public enterFrame (ctx: CanvasRenderingContext2D) {
+    this._children.forEach(child => {
+      child.enterFrame(ctx)
+    })
   }
 }

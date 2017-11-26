@@ -1,5 +1,7 @@
 import EventDispatcher from '../events/EventDispatcher'
-import DisplayContainer from './DisplayContainer';
+import DisplayEvent from '../events/DisplayEvent'
+import Container from './Container';
+import Maths from '../utils/Maths'
 
 export default class DisplayObject extends EventDispatcher {
   constructor () {
@@ -36,14 +38,44 @@ export default class DisplayObject extends EventDispatcher {
     this._rotation = val;
   }
 
-
   //===
-  protected _parent: DisplayContainer;
-  public get parent (): DisplayContainer {
+  protected _parent: Container;
+  public get parent (): Container {
     return this._parent
   }
 
-  protected render ():void {
+  public set parent (val: Container) {
+    this._parent = val
+  }
+
+  private _getParents ():Container[] {
+    let parents: Container[] = []
+    let p = this._parent
+    while (p) {
+      parents.push(p)
+      p = p.parent
+    }
+    return parents
+  }
+
+  //  called internally
+  public enterFrame (ctx: CanvasRenderingContext2D):void {
+    this.dispatch(DisplayEvent.ENTER_FRAME)
+    let parents: Container[] = this._getParents()
+    ctx.setTransform(1, 0, 0, 1, 0, 0)
+    ctx.restore()
+    parents.forEach(container => {
+      ctx.translate(container.x, container.y)
+      ctx.rotate(Maths.degToRad(container.rotation))
+    })
+
+    ctx.translate(this._x, this._y)
+    ctx.rotate(Maths.degToRad(this._rotation))
+
+    this.render(ctx)
+  }
+
+  public render (ctx: CanvasRenderingContext2D) {
     // Todo: implied by subclasses
   }
 } 
