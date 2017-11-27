@@ -1,6 +1,6 @@
-import DisplayObject from './core/display/DisplayObject'
-import Point from './core/utils/Point'
-import Maths from './core/utils/Maths'
+import DisplayObject from '../core/display/DisplayObject'
+import Point from '../core/utils/Point'
+import Maths from '../core/utils/Maths'
 
 export default class Segment extends DisplayObject {
 
@@ -8,7 +8,7 @@ export default class Segment extends DisplayObject {
   private _height: number;
   private _color: any;
 
-  constructor (width: number, height: number, color: any = 'rgba(200, 200, 200, 0.9)') {
+  constructor (width: number = 200, height: number = 40, color: any = 'rgba(200, 200, 200, 0.9)') {
     super()
 
     this._width = width

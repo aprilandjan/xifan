@@ -1,6 +1,7 @@
 import EventDispatcher from '../events/EventDispatcher'
 import DisplayEvent from '../events/DisplayEvent'
 import Container from './Container'
+import MouseEvent from '../events/MouseEvent';
 
 export default class Stage extends Container {
 
@@ -46,8 +47,9 @@ export default class Stage extends Container {
       this.resize(true)
     })
 
-    window.addEventListener('mousemove', (e:MouseEvent) => {
-      
+    // Todo: 先只给 stage 派发鼠标事件
+    window.addEventListener('mousemove', (e: any) => {
+      this.dispatch(new MouseEvent(MouseEvent.MOUSE_MOVE, this, e.offsetX, e.offsetY))
     })
   }
 

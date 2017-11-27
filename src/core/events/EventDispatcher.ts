@@ -23,7 +23,7 @@ export default class EventDispatcher {
       let listener = this._listeners[i]
       if (listener.type === eventName && 
         listener.callback === callback && 
-        listener.scope === callback) {
+        listener.scope === scope) {
           return listener
         }
     }
@@ -38,7 +38,7 @@ export default class EventDispatcher {
     for (let i = 0; i < this._listeners.length; i++) {
       let listener = this._listeners[i]
       if (listener.type === eventName) {
-        listener.callback.apply(listener.scope, new Event(eventName, this, ...data))
+        listener.callback.call(listener.scope, new Event(eventName, this, ...data))
       }
     }
   }
@@ -51,7 +51,7 @@ export default class EventDispatcher {
     for (let i = 0; i < this._listeners.length; i++) {
       let listener = this._listeners[i]
       if (listener.type === event.type) {
-        listener.callback.apply(listener.scope, event)
+        listener.callback.call(listener.scope, event)
       }
     }
   }
@@ -77,7 +77,7 @@ export default class EventDispatcher {
    * 移除某一个事件侦听
    * @param eventName 
    * @param callback 
-   * @param scope 
+   * @param scope
    */
   public removeListener (eventName: string, callback: Function, scope: any = null):void {
     let existedListener = this._findListener(eventName, callback, scope)

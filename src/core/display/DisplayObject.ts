@@ -47,7 +47,13 @@ export default class DisplayObject extends EventDispatcher {
 
   public set parent (val: Container) {
     this._parent = val
-    let onStage:Boolean = this._checkOnStage()
+    let parents: Container[] = this._getParents()
+    let rootParent = parents[0]
+    let onStage: Boolean
+    if (rootParent instanceof Stage) {
+      onStage = true
+      this._stage = rootParent
+    }
     if (onStage !== this._onStage) {
       if (onStage) {
         this.dispatch(new DisplayEvent(DisplayEvent.ADD_TO_STAGE, this))
@@ -55,22 +61,25 @@ export default class DisplayObject extends EventDispatcher {
         this.dispatch(new DisplayEvent(DisplayEvent.REMOVE_FROM_STAGE, this))
       }
     }
+    if (!onStage) {
+      this._stage = undefined
+    }
     this._onStage = onStage
   }
 
   //  whether the display object is on the stage and needed to be rendered
   private _onStage: Boolean = false
 
-  private _checkOnStage ():Boolean {
-    let parents: Container[] = this._getParents()
-    return parents[0] instanceof Stage
+  private _stage: Stage;
+  public get stage () {
+    return this._stage
   }
 
   private _getParents ():Container[] {
     let parents: Container[] = []
     let p = this._parent
     while (p) {
-      parents.push(p)
+      parents.unshift(p)
       p = p.parent
     }
     return parents
