@@ -1,3 +1,5 @@
+import Event from "./Event";
+
 /**
  * 事件原型
  */
@@ -28,16 +30,29 @@ export default class EventDispatcher {
   }
 
   /**
-   * 派发事件
+   * 用事件名直接派发事件
    * @param eventName 
    * @param data
    */
-  public dispatch (eventName: string, ...data: any[]):void {
+  public dispatchWith (eventName: string, ...data: any[]):void {
     for (let i = 0; i < this._listeners.length; i++) {
       let listener = this._listeners[i]
       if (listener.type === eventName) {
-          listener.callback.apply(listener.scope, data)
-        }
+        listener.callback.apply(listener.scope, new Event(eventName, this, ...data))
+      }
+    }
+  }
+
+  /**
+   * 派发事件
+   * @param event 
+   */
+  public dispatch (event: Event):void {
+    for (let i = 0; i < this._listeners.length; i++) {
+      let listener = this._listeners[i]
+      if (listener.type === event.type) {
+        listener.callback.apply(listener.scope, event)
+      }
     }
   }
 

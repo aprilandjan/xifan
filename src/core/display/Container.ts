@@ -1,5 +1,6 @@
 import DisplayObject from './DisplayObject'
 import Stage from './Stage'
+import DisplayEvent from '../events/DisplayEvent';
 
 export default class Container extends DisplayObject {
 
@@ -13,6 +14,10 @@ export default class Container extends DisplayObject {
 
   public getChildIndex (child: DisplayObject): number {
     return this._children.indexOf(child)
+  }
+
+  public getChildAt (index: number): DisplayObject {
+    return this._children[index]
   }
 
   public addChild (child: DisplayObject) {
@@ -36,6 +41,7 @@ export default class Container extends DisplayObject {
   }
 
   public enterFrame (ctx: CanvasRenderingContext2D) {
+    super.enterFrame(ctx)
     this._children.forEach(child => {
       child.enterFrame(ctx)
     })

@@ -27,16 +27,16 @@ export default class LoadQueue extends EventDispatcher {
     var img:HTMLImageElement = new Image()
     img.onload = () => {
       this._currentIndex ++
-      this.dispatch(UtilsEvent.LOAD_QUEUE_PROGRESS,  this._currentIndex, this._list.length, img)
+      this.dispatchWith(UtilsEvent.LOAD_QUEUE_PROGRESS,  this._currentIndex, this._list.length, img)
       if (this._currentIndex >= this._list.length) {
-        this.dispatch(UtilsEvent.LOAD_QUEUE_COMPLETE)
+        this.dispatchWith(UtilsEvent.LOAD_QUEUE_COMPLETE)
       }
     }
     img.onerror = (e: any) => {
-      this.dispatch(UtilsEvent.LOAD_QUEUE_ERROR, e, src)
-      this.dispatch(UtilsEvent.LOAD_QUEUE_PROGRESS,  this._currentIndex, this._list.length, img)
+      this.dispatchWith(UtilsEvent.LOAD_QUEUE_ERROR, e, src)
+      this.dispatchWith(UtilsEvent.LOAD_QUEUE_PROGRESS,  this._currentIndex, this._list.length, img)
       if (this._currentIndex >= this._list.length) {
-        this.dispatch(UtilsEvent.LOAD_QUEUE_COMPLETE)
+        this.dispatchWith(UtilsEvent.LOAD_QUEUE_COMPLETE)
       }
     }
     img.src = src

@@ -45,13 +45,17 @@ export default class Stage extends Container {
     window.addEventListener('resize', () => {
       this.resize(true)
     })
+
+    window.addEventListener('mousemove', (e:MouseEvent) => {
+      
+    })
   }
 
   public resize (sendEvent: boolean = false):void {
     let rect = this._rootEl.getBoundingClientRect()
     this._rootEl.width = this._width = rect.width
     this._rootEl.height = this._height = rect.height
-    this.dispatch(DisplayEvent.STAGE_RESIZE)
+    this.dispatch(new DisplayEvent(DisplayEvent.STAGE_RESIZE, this))
   }
 
   public update ():void {

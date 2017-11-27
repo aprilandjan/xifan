@@ -2,6 +2,7 @@ import EventDispatcher from '../events/EventDispatcher'
 import DisplayEvent from '../events/DisplayEvent'
 import Container from './Container';
 import Maths from '../utils/Maths'
+import Stage from './Stage';
 
 export default class DisplayObject extends EventDispatcher {
   constructor () {
@@ -46,6 +47,23 @@ export default class DisplayObject extends EventDispatcher {
 
   public set parent (val: Container) {
     this._parent = val
+    let onStage:Boolean = this._checkOnStage()
+    if (onStage !== this._onStage) {
+      if (onStage) {
+        this.dispatch(new DisplayEvent(DisplayEvent.ADD_TO_STAGE, this))
+      } else {
+        this.dispatch(new DisplayEvent(DisplayEvent.REMOVE_FROM_STAGE, this))
+      }
+    }
+    this._onStage = onStage
+  }
+
+  //  whether the display object is on the stage and needed to be rendered
+  private _onStage: Boolean = false
+
+  private _checkOnStage ():Boolean {
+    let parents: Container[] = this._getParents()
+    return parents[0] instanceof Stage
   }
 
   private _getParents ():Container[] {
@@ -60,7 +78,7 @@ export default class DisplayObject extends EventDispatcher {
 
   //  called internally
   public enterFrame (ctx: CanvasRenderingContext2D):void {
-    this.dispatch(DisplayEvent.ENTER_FRAME)
+    this.dispatch(new DisplayEvent(DisplayEvent.ENTER_FRAME, this))
     let parents: Container[] = this._getParents()
     ctx.setTransform(1, 0, 0, 1, 0, 0)
     ctx.restore()
