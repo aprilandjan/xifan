@@ -10,6 +10,7 @@ import chapter3_start_walk from './views/chapter3_start_walk';
 import Controls from './Controls';
 import chapter4_walk_with_2_legs from './views/chapter4_walk_with_2_legs';
 import chapter5_walk_on_the_ground from './views/chapter5_walk_on_the_ground';
+import chapter6_fetch_play from './views/chapter6_fetch_play';
 
 const stage:Stage = new Stage('root')
 
@@ -27,7 +28,8 @@ const chapterMap: any = {
   2: chapter2_two_segment,
   3: chapter3_start_walk,
   4: chapter4_walk_with_2_legs,
-  5: chapter5_walk_on_the_ground
+  5: chapter5_walk_on_the_ground,
+  6: chapter6_fetch_play
 }
 
 let current: any = {
