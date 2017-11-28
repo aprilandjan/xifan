@@ -2,6 +2,7 @@ import Chapter from "../components/Chapter";
 import Segment from "../components/Segment";
 import MouseEvent from "../core/events/MouseEvent";
 import Maths from "../core/utils/Maths";
+import Controls from "../Controls";
 
 export default class chapter1_one_segment extends Chapter {
   

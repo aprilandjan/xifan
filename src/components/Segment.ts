@@ -8,6 +8,9 @@ export default class Segment extends DisplayObject {
   private _height: number;
   private _color: any;
 
+  public vx: number = 0
+  public vy: number = 0
+
   constructor (width: number = 200, height: number = 40, color: any = 'rgba(200, 200, 200, 0.9)') {
     super()
 

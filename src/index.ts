@@ -6,6 +6,10 @@ import DisplayEvent from './core/events/DisplayEvent';
 import chapter1_one_segment from './views/chapter1_one_segment';
 import Chapter from './components/Chapter';
 import chapter2_two_segment from './views/chapter2_two_segment';
+import chapter3_start_walk from './views/chapter3_start_walk';
+import Controls from './Controls';
+import chapter4_walk_with_2_legs from './views/chapter4_walk_with_2_legs';
+import chapter5_walk_on_the_ground from './views/chapter5_walk_on_the_ground';
 
 const stage:Stage = new Stage('root')
 
@@ -20,7 +24,10 @@ Ticker.register(() => {
 
 const chapterMap: any = {
   1: chapter1_one_segment,
-  2: chapter2_two_segment
+  2: chapter2_two_segment,
+  3: chapter3_start_walk,
+  4: chapter4_walk_with_2_legs,
+  5: chapter5_walk_on_the_ground
 }
 
 let current: any = {
@@ -33,18 +40,18 @@ function navigateToChapter (index: number) {
   if (chapterClass) {
     if (current.chapter) {
       main.removeChild(current.chapter)
+      Controls.removeAll()
     }
     let chapter: Chapter = new chapterClass() as Chapter
     main.addChild(chapter)
     current.chapter = chapter
     current.index = index
     console.log(index, chapter)
+    window.location.hash = '#chapter' + index
   } else {
     alert(`已经是${index < 0 ? '第一页' : '最后一页'}了`)
   }
 }
-
-navigateToChapter(2)
 
 // up=38, down=40, space=32
 window.addEventListener('keydown', (e: KeyboardEvent) => {
@@ -63,3 +70,10 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
       break
   }
 })
+
+let hash:string = window.location.hash
+let chapterIndex: number
+if (hash.indexOf('#chapter') >= 0) {
+  chapterIndex = +hash.substr(8)
+}
+navigateToChapter(chapterIndex || 1)
