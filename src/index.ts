@@ -73,9 +73,14 @@ window.addEventListener('keydown', (e: KeyboardEvent) => {
   }
 })
 
-let hash:string = window.location.hash
-let chapterIndex: number
-if (hash.indexOf('#chapter') >= 0) {
-  chapterIndex = +hash.substr(8)
+function onHashChange () {
+  let hash:string = window.location.hash
+  let chapterIndex: number
+  if (hash.indexOf('#chapter') >= 0) {
+    chapterIndex = +hash.substr(8)
+  }
+  navigateToChapter(chapterIndex || 1)
 }
-navigateToChapter(chapterIndex || 1)
+
+window.addEventListener('hashchange', onHashChange);
+onHashChange();
