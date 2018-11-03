@@ -17,11 +17,44 @@
       height: 100%;
       overflow: hidden;
     }
+
+    .controls {
+      position: fixed;
+      z-index: 100;
+      top: 0;
+      padding: 10px;
+    }
+
+    .segment {
+      padding: 5px 10px;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
+      margin-right: 5px;
+      margin-bottom: 5px;
+      min-width: 300px;
+      /* display: inline-block; */
+    }
+
+    h3 {
+      margin-bottom: 5px;
+    }
+
+    input[type="range"] {
+      width: 160px;
+      vertical-align: middle;
+      margin-left: 5px;
+    }
   </style>
 </head>
 <body>
   <canvas id="root">
     Not supported!
   </canvas>
+  <div class="controls">
+    <!-- <div id="segment" class="segment">
+      <h3>Segment 1</h3>
+      <label>rotation<input type="range" min="-90" max="90"></label>
+      <span>100</span>
+    </div> -->
+  </div>
 <script type="text/javascript" src="bundle.js"></script></body>
 </html>
