@@ -17,3 +17,9 @@ In fact, this is a practice program of canvas, simulating basic kinematics anima
 5. [walk on the ground](https://aprilandjan.github.com/xifan/index.html#chapter5)
 
 6. [fetch play](https://aprilandjan.github.com/xifan/index.html#chapter6)
+
+## Todo
+
+1. add title for each chapter
+
+2. add key function toggles
