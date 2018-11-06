@@ -7,10 +7,11 @@ export default class Chapter extends Container {
 
   public sceneIndex: number = 0;
   public sceneCount: number = 1;
+  public title: string;
 
-  constructor () {
+  constructor (title: string) {
     super()
-
+    this.title = title;
     this.addListener(DisplayEvent.ADD_TO_STAGE, this.onAdded, this)
     this.addListener(DisplayEvent.REMOVE_FROM_STAGE, this.onRemoved, this)
   }
@@ -26,6 +27,11 @@ export default class Chapter extends Container {
   protected init () {
     this.addListener(DisplayEvent.ENTER_FRAME, this.onTick, this)
     this.stage.addListener(MouseEvent.MOUSE_MOVE, this.onMouseMove, this)
+    
+    const title = document.querySelector('#title');
+    if (title) {
+      title.innerHTML = this.title
+    }
   }
 
   protected dispose () {

@@ -27,7 +27,7 @@ export default class chapter4_walk_with_2_legs extends Chapter {
   public walkPhaseOffset: number = -90;
 
   constructor () {
-    super()
+    super('walk with 2 legs')
   }
 
   protected init() {

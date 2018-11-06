@@ -19,7 +19,7 @@ export default class chapter2_two_segment extends Chapter {
   public seg2FollowSeg1: Boolean = false
 
   constructor () {
-    super()
+    super('two segments')
   }
 
   protected init() {

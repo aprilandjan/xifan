@@ -10,7 +10,7 @@ export default class chapter1_one_segment extends Chapter {
   public seg: Segment
 
   constructor () {
-    super()
+    super('one segment')
   }
 
   protected init() {

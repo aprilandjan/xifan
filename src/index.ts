@@ -51,7 +51,7 @@ function navigateToChapter (index: number) {
     console.log(index, chapter)
     window.location.hash = '#chapter' + index
   } else {
-    alert(`已经是${index < 0 ? '第一页' : '最后一页'}了`)
+    // alert(`已经是${index < 0 ? '第一页' : '最后一页'}了`)
   }
 }
 

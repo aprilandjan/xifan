@@ -22,7 +22,7 @@ export default class chapter3_start_walk extends Chapter {
   public applyOffsetPhaseDeg: boolean = false
 
   constructor () {
-    super()
+    super('start walk')
   }
 
   protected init() {

@@ -38,7 +38,7 @@ export default class chapter5_walk_on_the_ground extends Chapter {
   public groundRebounce: Boolean = false
 
   constructor () {
-    super()
+    super('walk on the ground')
   }
 
   protected init() {

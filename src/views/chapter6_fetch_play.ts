@@ -30,7 +30,7 @@ export default class chapter6_fetch_play extends Chapter {
   public groundRebounce: Boolean = false
 
   constructor () {
-    super()
+    super('fetch play')
   }
 
   protected init() {
